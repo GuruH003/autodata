@@ -1,0 +1,278 @@
+import uuid
+import os
+import requests
+import paramiko
+import json
+import pyarrow.parquet as pq
+import numpy as np
+from sqlalchemy import create_engine
+from django.conf import settings
+from django_cron import CronJobBase, Schedule
+from .models import Job, CellTowerData
+import time
+
+paramiko.util.log_to_file('./paramiko.log')
+
+hostname = settings.BIG_DATA_HOST
+port = settings.BIG_DATA_PORT
+
+sftpHostname = settings.SFTP_DATA_HOST
+sftpPassword = settings.SFTP_DATA_PASSWORD
+
+statusEndpoint = 'http://{}:{}/ontrack-webservice/status'.format(
+    hostname,
+    port
+)
+
+cellSiteDataEndpoint = 'http://{}:{}/ontrack-webservice/cellsites'.format(
+    hostname,
+    port
+)
+
+operatorsList = [
+    'MTN',
+    '9Mobile',
+    'Airtel',
+    'Glo',
+]
+
+username = settings.BIG_DATA_USERNAME
+password = settings.BIG_DATA_HOST_PASSWORD
+
+dbname = 'devdb'
+dbhost = 'localhost'
+dbuser = 'ghost'
+dbpassword = 'password'
+
+def getFileFromSSH(responseBody):
+    statusPayload = {'requestID': responseBody['requestID']}
+    getURL = statusEndpoint + '/?requestID='+responseBody['requestID']
+    print(getURL)
+    time.sleep(60)
+    statusResponse = requests.get(getURL)
+    print(statusResponse.status_code)
+    print(statusResponse.json())
+    if statusResponse.status_code == 201:
+        print('Its 201')
+        responseBody1 = statusResponse.json()
+        localFilePath = 'response.parquet'
+        outputFilePath = responseBody1['outputFile']
+        ssh = paramiko.SSHClient()
+        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        ssh.connect(sftpHostname, username=username, password=sftpPassword)
+        sftp = ssh.open_sftp()
+        sftp.get(outputFilePath, localFilePath)
+        df = pq.read_table(source='response.parquet').to_pandas()
+        df.columns = map(str.lower, df.columns)
+        print(df.columns)
+        str_df = df.select_dtypes([np.object])
+        print(str_df)
+        # str_df = str_df.stack().str.decode('utf-8').unstack()
+        for col in str_df:
+            df[col] = str_df[col]
+        
+        #print(df)
+
+        engine = create_engine('postgresql://{}:{}@{}:5433/{}'.format(dbuser,dbpassword, dbhost, dbname))
+        df.to_sql('api_celltowerdata', engine, if_exists='append', index=False)
+    elif statusResponse.status_code == 202:
+        print('Its 202')
+    return statusResponse
+
+
+def ingestParquetFile(localJobId):
+    df = pq.read_table(source='temp.parquet').to_pandas()
+    #print("cdr parquet")
+    #print(df.city)
+    #print(df.lga)
+    #print(df.address)
+    #print(df.cgi)
+    df['job_id'] = localJobId
+    df.columns = map(str.lower, df.columns)
+    str_df = df.select_dtypes([np.object])
+    # str_df = str_df.stack().str.decode('utf-8').unstack()
+
+    for col in str_df:
+        #print(str_df[col])
+        df[col] = str_df[col]
+        #print(df[col])
+
+    engine = create_engine(
+        'postgresql://{}:{}@{}:5433/{}'.format(dbuser,
+                                               dbpassword, dbhost, dbname)
+    )
+    df.to_sql('api_calldetailrecord', engine, if_exists='append', index=False)
+
+
+def ingestHandsetHistoryParquetFile(localJobId):
+    df = pq.read_table(source='temp.parquet').to_pandas()
+    print('hh parquet')
+    #print(df)
+    #df = df[df['type'].notnull()]
+    print("0")
+    df['job_id'] = localJobId
+    print("1")
+    df.columns = map(str.lower, df.columns)
+    print("2")
+    str_df = df.select_dtypes([np.object])
+    print("4")
+    #str_df = str_df.stack().str.decode('utf-8').unstack()
+    print("5")
+
+    for col in str_df:
+        print("6")
+        df[col] = str_df[col]
+
+    engine = create_engine(
+        'postgresql://ghost:password@localhost:5433/devdb'
+    )
+    df.to_sql('api_handsethistory', engine, if_exists='append', index=False)
+
+
+def ingestLinkTreeParquetFile(localJobId):
+    df = pq.read_table(source='temp.parquet').to_pandas()
+    print('lt parquet')
+    #print(df)
+    df['job_id'] = localJobId
+
+    engine = create_engine(
+        'postgresql://ghost:password@localhost:5433/devdb'
+    )
+    df.to_sql('api_linktree', engine, if_exists='append', index=False)
+
+
+class FetchRecordsFromBigData(CronJobBase):
+    RUN_EVERY_MINS = 1
+    schedule = Schedule(run_every_mins=RUN_EVERY_MINS)
+    code = str(uuid.uuid4())
+
+    def do(self):
+        pendingJobs = Job.objects.filter(status='PENDING')
+        ssh = paramiko.SSHClient()
+        ssh.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        ssh.connect(sftpHostname, username=username, password=sftpPassword)
+        sftp = ssh.open_sftp()
+        # ssh2 = paramiko.SSHClient()
+        # ssh2.set_missing_host_key_policy(paramiko.AutoAddPolicy())
+        # ssh2.connect(sftpHostname,usrname=username,password=sftpPassword)
+        #sftp = ssh2.open_sftp()
+        localFilePath = 'temp.parquet'
+        print('\ncdr')
+        for job in pendingJobs:
+            localJobId = job.id
+            if job.serverJobId == None:
+                continue
+            print('localjobid='+str(job.id))
+            payload = {'requestID': job.serverJobId}
+            #print('cdr payload = '+str(payload))
+            try:
+                response = requests.get(statusEndpoint, params=payload)
+                response = response.json()
+                #print('cdr status resp: '+str(response))
+                if response['status'] == 'FINISHED':
+                    remoteFilePath = response['outputFile']
+                    #remoteFilePath = '/home/centos/autodata/Output/f6069e87-a0e0-4842-9081-b49e451a7e5f/response.parquet'
+                    sftp.get(remoteFilePath, localFilePath)
+                    ingestParquetFile(localJobId)
+                    Job.objects.filter(pk=localJobId).update(status='FINISHED')
+                elif response['status'] == 'FAILED':
+                        Job.objects.filter(pk=localJobId).update(
+                            status='FAILED'
+                        )
+
+            except Exception as ex:
+                print('Error for cdr job id: {}'.format(job.id))
+                #print(ex)
+            print()
+
+        # Link Tree
+        print('lt')
+        pendingJobs = Job.objects.filter(linkTreeStatus='PENDING')
+        for job in pendingJobs:
+            localJobId = job.id
+            if (job.category == 'IMSI' or job.category == 'IMEI' or job.category == 'MSISDN') and job.linkTreeJobId != None:
+                print('localjobid='+str(job.id))
+                payload = {'requestID': job.linkTreeJobId}
+                print('lt payload = '+str(payload))
+                try:
+                    response = requests.get(statusEndpoint, params=payload)
+                    response = response.json()
+                    print('lt status resp: '+str(response))
+                    if response['status'] == 'FINISHED':
+                        remoteFilePath = response['outputFile']
+                        #remoteFilePath = '/home/centos/autodata/Output/f6069e87-a0e0-4842-9081-b49e451a7e5f/response.parquet'
+                        sftp.get(remoteFilePath, localFilePath)
+                        ingestLinkTreeParquetFile(localJobId)
+                        Job.objects.filter(pk=localJobId).update(
+                            linkTreeStatus='FINISHED'
+                        )
+                    elif response['status'] == 'FAILED':
+                        Job.objects.filter(pk=localJobId).update(
+                            linkTreeStatus='FAILED'
+                        )
+
+                except Exception as ex:
+                    print('Error for lt job id: {}'.format(job.id))
+                    print(ex)
+                print()
+
+        # Handset History
+        print('hh')
+        pendingJobs = Job.objects.filter(handsetHistoryStatus='PENDING')
+        for job in pendingJobs:
+            localJobId = job.id
+            if (job.category == 'IMSI' or job.category == 'IMEI' or job.category == 'MSISDN') and job.handsetHistoryJobId != None:
+                print('localjobid='+str(job.id))
+                payload = {'requestID': job.handsetHistoryJobId}
+                print('hh payload = '+str(payload))
+
+                try:
+                    response = requests.get(statusEndpoint, params=payload)
+                    response = response.json()
+                    print('hh status resp: '+str(response))
+                    if response['status'] == 'FINISHED':
+                        remoteFilePath = response['outputFile']
+                        #remoteFilePath = '/home/centos/autodata/Output/f6069e87-a0e0-4842-9081-b49e451a7e5f/response.parquet'
+                        sftp.get(remoteFilePath, localFilePath)
+                        ingestHandsetHistoryParquetFile(localJobId)
+                        Job.objects.filter(pk=localJobId).update(
+                            handsetHistoryStatus='FINISHED'
+                        )
+                    elif response['status'] == 'FAILED':
+                        Job.objects.filter(pk=localJobId).update(
+                            handsetHistoryStatus='FAILED'
+                        )
+
+                except Exception as ex:
+                    print('Error for hh job id: {}'.format(job.id))
+                    print(ex)
+                print()
+
+        sftp.close()
+        ssh.close()
+
+class FetchCellSiteData(CronJobBase):
+    RUN_EVERY_MINS = 1
+    schedule = Schedule(run_every_mins=RUN_EVERY_MINS)
+    code = str(uuid.uuid4())
+
+    def do(self):
+        CellTowerData.objects.all().delete()
+        for operator in operatorsList:
+            print('Cell')
+            operatorParam = {'operator': operator}
+            response = requests.get(cellSiteDataEndpoint, params=operatorParam)
+            responseBody = response.json()
+            print(responseBody)
+            if(responseBody['status'] == 'ACCEPTED'):
+                statusResponse = getFileFromSSH(responseBody=responseBody)
+                if statusResponse.status_code != '202':
+                    print(statusResponse.status_code)
+                elif statusResponse.status_code == '202':
+                    print('Sleeping for 40 secs')
+                    time.sleep(40)
+                    print('Starting again')
+                    statusResponse2 = getFileFromSSH(responseBody=responseBody)
+                    print(statusResponse2.status_code)
+            else:
+                print('Failed to create request ' + cellSiteDataEndpoint + ' ' + operatorParam)
