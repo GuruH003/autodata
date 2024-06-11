@@ -1,0 +1,307 @@
+Running Crons
+========================================
+
+cdr
+localjobid=975647
+cdr payload = {'requestID': '61502c62-cb51-4c1c-9a98-957763833495'}
+cdr status resp: {'requestID': '61502c62-cb51-4c1c-9a98-957763833495', 'submissionTime': 1718091773297, 'status': 'FINISHED', 'finishTime': 1718091787558, 'outputFile': '/home/Ontrac/autodata/webservice/Output/61502c62-cb51-4c1c-9a98-957763833495/response.parquet', 'error': '', 'pid': 0, 'webServiceIp': '10.0.5.158'}
+Remote File Path is :/home/Ontrac/autodata/webservice/Output/61502c62-cb51-4c1c-9a98-957763833495/response.parquet
+SRikanth Here before Ingestion
+cdr parquet
+before
+Engine: Engine(postgresql://autodata:***@10.0.5.180:5454/proddatabase)
+Before Exit
+Srikanth here post Ingestion
+
+localjobid=975655
+cdr payload = {'requestID': '18c215e3-a7da-4056-8bc4-d0668ab578c9'}
+cdr status resp: {'requestID': '18c215e3-a7da-4056-8bc4-d0668ab578c9', 'submissionTime': 1718091616521, 'status': 'FINISHED', 'finishTime': 1718091632483, 'outputFile': '/home/Ontrac/autodata/webservice/Output/18c215e3-a7da-4056-8bc4-d0668ab578c9/response.parquet', 'error': '', 'pid': 0, 'webServiceIp': '10.0.5.158'}
+Remote File Path is :/home/Ontrac/autodata/webservice/Output/18c215e3-a7da-4056-8bc4-d0668ab578c9/response.parquet
+SRikanth Here before Ingestion
+cdr parquet
+before
+Engine: Engine(postgresql://autodata:***@10.0.5.180:5454/proddatabase)
+Before Exit
+Srikanth here post Ingestion
+
+localjobid=975656
+cdr payload = {'requestID': '8234ab8f-6d0c-4239-b518-1f9605ec8afe'}
+cdr status resp: {'requestID': '8234ab8f-6d0c-4239-b518-1f9605ec8afe', 'submissionTime': 1718091601184, 'status': 'FINISHED', 'finishTime': 1718091622877, 'outputFile': '/home/Ontrac/autodata/webservice/Output/8234ab8f-6d0c-4239-b518-1f9605ec8afe/response.parquet', 'error': '', 'pid': 0, 'webServiceIp': '10.0.5.158'}
+Remote File Path is :/home/Ontrac/autodata/webservice/Output/8234ab8f-6d0c-4239-b518-1f9605ec8afe/response.parquet
+SRikanth Here before Ingestion
+cdr parquet
+before
+Engine: Engine(postgresql://autodata:***@10.0.5.180:5454/proddatabase)
+Before Exit
+Srikanth here post Ingestion
+
+localjobid=975657
+cdr payload = {'requestID': '3c6dd13c-0ff6-45fd-bb86-55000ad74c9e'}
+cdr status resp: {'requestID': '3c6dd13c-0ff6-45fd-bb86-55000ad74c9e', 'submissionTime': 1718091592104, 'status': 'FINISHED', 'finishTime': 1718091618997, 'outputFile': '/home/Ontrac/autodata/webservice/Output/3c6dd13c-0ff6-45fd-bb86-55000ad74c9e/response.parquet', 'error': '', 'pid': 0, 'webServiceIp': '10.0.5.158'}
+Remote File Path is :/home/Ontrac/autodata/webservice/Output/3c6dd13c-0ff6-45fd-bb86-55000ad74c9e/response.parquet
+SRikanth Here before Ingestion
+cdr parquet
+before
+Engine: Engine(postgresql://autodata:***@10.0.5.180:5454/proddatabase)
+Before Exit
+Srikanth here post Ingestion
+
+localjobid=975658
+cdr payload = {'requestID': 'a79392e4-e119-4317-ba7e-67cdf5ab5401'}
+cdr status resp: {'requestID': 'a79392e4-e119-4317-ba7e-67cdf5ab5401', 'submissionTime': 1718091584554, 'status': 'FINISHED', 'finishTime': 1718091607685, 'outputFile': '/home/Ontrac/autodata/webservice/Output/a79392e4-e119-4317-ba7e-67cdf5ab5401/response.parquet', 'error': '', 'pid': 0, 'webServiceIp': '10.0.5.158'}
+Remote File Path is :/home/Ontrac/autodata/webservice/Output/a79392e4-e119-4317-ba7e-67cdf5ab5401/response.parquet
+SRikanth Here before Ingestion
+cdr parquet
+before
+Engine: Engine(postgresql://autodata:***@10.0.5.180:5454/proddatabase)
+Before Exit
+Srikanth here post Ingestion
+
+lt
+localjobid=978039
+lt payload = {'requestID': 'c33ec08c-54d8-4868-a286-06b5332b2629'}
+lt status resp: {'requestID': 'c33ec08c-54d8-4868-a286-06b5332b2629', 'submissionTime': 1718088878353, 'status': 'FINISHED', 'finishTime': 1718088913005, 'outputFile': '/home/Ontrac/autodata/webservice/Output/c33ec08c-54d8-4868-a286-06b5332b2629/response.parquet', 'error': '', 'pid': 0, 'webServiceIp': '10.0.5.158'}
+lt parquet
+           msisdn  interactions
+0   2348133822221             5
+1   2349153458773             4
+2   2349037373869            12
+3   2348121739740             8
+4   2348081524795             9
+..            ...           ...
+75  2347052065388             1
+76  2348127810700             7
+77  2349073300082             2
+78  2349044356651            23
+79  2348140417231             4
+
+[80 rows x 2 columns]
+
+localjobid=978040
+lt payload = {'requestID': '29c9dac1-6f52-49e2-bc69-73a23e53d31c'}
+lt status resp: {'requestID': '29c9dac1-6f52-49e2-bc69-73a23e53d31c', 'submissionTime': 1718090854945, 'status': 'FINISHED', 'finishTime': 1718090883330, 'outputFile': '/home/Ontrac/autodata/webservice/Output/29c9dac1-6f52-49e2-bc69-73a23e53d31c/response.parquet', 'error': '', 'pid': 0, 'webServiceIp': '10.0.5.158'}
+lt parquet
+           msisdn  interactions
+0   2348162259202            14
+1   2349037302779             3
+2   2347066701523            22
+3   2347064968808             2
+4   2348069557390             3
+5   2348066486001             3
+6   2347061142806             7
+7           32300             8
+8   2348139300478             3
+9   2348060426211             1
+10  2349039088430             3
+
+localjobid=978041
+lt payload = {'requestID': '7d55f550-a5b0-42e2-b281-d6bcd044bcdd'}
+lt status resp: {'requestID': '7d55f550-a5b0-42e2-b281-d6bcd044bcdd', 'submissionTime': 1718088899105, 'status': 'FINISHED', 'finishTime': 1718088927468, 'outputFile': '/home/Ontrac/autodata/webservice/Output/7d55f550-a5b0-42e2-b281-d6bcd044bcdd/response.parquet', 'error': '', 'pid': 0, 'webServiceIp': '10.0.5.158'}
+lt parquet
+           msisdn  interactions
+0   2349029770550            12
+1   2349048680854             5
+2   2349023676957             2
+3   2348063921185             3
+4   2348068204779             2
+5   2347061980772             1
+6   2347080923841            10
+7   2349042016226             4
+8   2348026626808             2
+9   2348080672693             3
+10  2347033163813             2
+11  2348161326309            15
+12  2347016438176             3
+13  2348073700268             2
+14  2349011327433             4
+15  2348039576851             3
+16  2348108276008             1
+17  2348115248789            18
+18  2348121448948             2
+19  2348122203638            13
+20  2349117917534             4
+21  2348066039981             8
+22  2347083702937             8
+23  2349039147691            12
+24  2347039476985             2
+25  2349068617456             3
+26  2348036537975            10
+27  2348029145963             3
+28  2349011776920             4
+29  2349044555756             5
+30  2348124858046             3
+31  2348128856187             7
+32  2347033844605             7
+33  2347036535588            28
+34  2347085377622             1
+35  2347030561417             5
+36  2348142694596            47
+37  2349013936343             9
+38  2348146648835             2
+39  2347017751902             2
+40  2347038985624            15
+41  2347045581866             2
+42  2347072827406            13
+43  2349113987430             9
+44  2348115823578             2
+45  2348161645715             9
+46            232             9
+47  2349061805492             7
+48  2348167196001             6
+49  2348086924842            54
+50  2348034336019             1
+51  2348154109492            50
+52  2347046456718            28
+53  2349045346514           134
+54  2349013119171             3
+55  2349064287216             2
+56  2349015551333           274
+57  2349126658178             4
+58  2347062200466             2
+
+localjobid=978042
+lt payload = {'requestID': 'adeb1430-ddce-4ed0-9cf8-e23b1395727b'}
+lt status resp: {'requestID': 'adeb1430-ddce-4ed0-9cf8-e23b1395727b', 'submissionTime': 1718091008425, 'status': 'FINISHED', 'finishTime': 1718091026646, 'outputFile': '/home/Ontrac/autodata/webservice/Output/adeb1430-ddce-4ed0-9cf8-e23b1395727b/response.parquet', 'error': '', 'pid': 0, 'webServiceIp': '10.0.5.158'}
+lt parquet
+           msisdn  interactions
+0   2348162259202            14
+1   2349037302779             3
+2   2347066701523            22
+3   2347064968808             2
+4   2348069557390             3
+5   2348066486001             3
+6   2347061142806             7
+7           32300             8
+8   2348139300478             3
+9   2348060426211             1
+10  2349039088430             3
+
+localjobid=978043
+lt payload = {'requestID': 'ec331ccf-3fc3-41a4-b8f4-b42bfdd6760a'}
+lt status resp: {'requestID': 'ec331ccf-3fc3-41a4-b8f4-b42bfdd6760a', 'submissionTime': 1718088909219, 'status': 'FINISHED', 'finishTime': 1718088936108, 'outputFile': '/home/Ontrac/autodata/webservice/Output/ec331ccf-3fc3-41a4-b8f4-b42bfdd6760a/response.parquet', 'error': '', 'pid': 0, 'webServiceIp': '10.0.5.158'}
+lt parquet
+           msisdn  interactions
+0   2347047174607           150
+1   2349017670393             1
+2   2348160138600             1
+3   2348101139730            12
+4   2347013698373             9
+5   2349027868373             2
+6   2349155647013             3
+7           38292             1
+8   2349168592619             2
+9   2348146555466             1
+10  2348148850221            10
+11  2348106250120             1
+12  2348141980076             1
+13  2349023061419             3
+14  2347086872141             4
+15  2347026047790             1
+16  2347049353351             3
+17  2348164690569             3
+18            303            16
+19  2349079564703             2
+20  2348059016107             2
+21  2348064701852            57
+22  2348102277075            68
+23  2348108204602             9
+24  2347057260518             2
+25  2347047892123             3
+26  2347033642742             6
+27    23413698373             4
+28  2348087137940             8
+29  2347065579504             5
+30  2348129888646             7
+31  2349012879969             1
+32  2349162583544            27
+33  2348103178151             6
+34  2348167711601             1
+35  2348105305529             1
+36  2348163971514             1
+37  2349169155362            11
+38  2348067364605             2
+39  2349066645133             2
+40  2349030190804             1
+41  2349021191771             2
+42  2347069645833            29
+43  2347031501237            22
+44  2349169669438             5
+45  2348164870488             2
+46  2349038632397             1
+47  2348169420313             2
+48  2348132995832             9
+49  2348147513637             3
+50  2348108523894            34
+51  2349135687998             1
+52  2348030452062             4
+53  2349039417207             1
+54  2348065795836             1
+
+hh
+localjobid=977741
+hh payload = {'requestID': 'f97bafcf-9902-481f-b924-39abd7ff29ef'}
+hh status resp: {'requestID': 'f97bafcf-9902-481f-b924-39abd7ff29ef', 'submissionTime': 1718059391823, 'status': 'FINISHED', 'finishTime': 1718059400769, 'outputFile': '/home/Ontrac/autodata/webservice/Output/f97bafcf-9902-481f-b924-39abd7ff29ef/response.parquet', 'error': '', 'pid': 0, 'webServiceIp': '10.0.5.158'}
+hh parquet
+Empty DataFrame
+Columns: [associatedMsisdn, imei, msisdn, startTime, endTime]
+Index: []
+0
+1
+2
+4
+5
+
+localjobid=977742
+hh payload = {'requestID': '71ca0d29-a1ec-48e6-a1cd-bee97ae35745'}
+hh status resp: {'requestID': '71ca0d29-a1ec-48e6-a1cd-bee97ae35745', 'submissionTime': 1718059412661, 'status': 'FINISHED', 'finishTime': 1718059423706, 'outputFile': '/home/Ontrac/autodata/webservice/Output/71ca0d29-a1ec-48e6-a1cd-bee97ae35745/response.parquet', 'error': '', 'pid': 0, 'webServiceIp': '10.0.5.158'}
+hh parquet
+Empty DataFrame
+Columns: [associatedMsisdn, imei, msisdn, startTime, endTime]
+Index: []
+0
+1
+2
+4
+5
+
+localjobid=977743
+hh payload = {'requestID': '0ce432b7-dbc6-452f-bd9a-3fe171be293c'}
+hh status resp: {'requestID': '0ce432b7-dbc6-452f-bd9a-3fe171be293c', 'submissionTime': 1718059429089, 'status': 'FINISHED', 'finishTime': 1718059440588, 'outputFile': '/home/Ontrac/autodata/webservice/Output/0ce432b7-dbc6-452f-bd9a-3fe171be293c/response.parquet', 'error': '', 'pid': 0, 'webServiceIp': '10.0.5.158'}
+hh parquet
+Empty DataFrame
+Columns: [associatedMsisdn, imei, msisdn, startTime, endTime]
+Index: []
+0
+1
+2
+4
+5
+
+localjobid=977744
+hh payload = {'requestID': 'b0c38fc8-2a89-41fb-8ab4-8f8bf5e1e30c'}
+hh status resp: {'requestID': 'b0c38fc8-2a89-41fb-8ab4-8f8bf5e1e30c', 'submissionTime': 1718059446059, 'status': 'FINISHED', 'finishTime': 1718059456160, 'outputFile': '/home/Ontrac/autodata/webservice/Output/b0c38fc8-2a89-41fb-8ab4-8f8bf5e1e30c/response.parquet', 'error': '', 'pid': 0, 'webServiceIp': '10.0.5.158'}
+hh parquet
+Empty DataFrame
+Columns: [associatedMsisdn, imei, msisdn, startTime, endTime]
+Index: []
+0
+1
+2
+4
+5
+
+localjobid=977745
+hh payload = {'requestID': '310e9084-669e-46a3-b44d-4797cbdd85f5'}
+hh status resp: {'requestID': '310e9084-669e-46a3-b44d-4797cbdd85f5', 'submissionTime': 1718059478183, 'status': 'FINISHED', 'finishTime': 1718059489737, 'outputFile': '/home/Ontrac/autodata/webservice/Output/310e9084-669e-46a3-b44d-4797cbdd85f5/response.parquet', 'error': '', 'pid': 0, 'webServiceIp': '10.0.5.158'}
+hh parquet
+Empty DataFrame
+Columns: [associatedMsisdn, imei, msisdn, startTime, endTime]
+Index: []
+0
+1
+2
+4
+5
+
+Linked
+[✔] 8ff638b9-6f60-46dc-aaf0-7dc3ab2b1c63

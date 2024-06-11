@@ -1,0 +1,13 @@
+Running Crons
+========================================
+Running cron job to collect data of jobs created and failed in the last 24 hours
+Collecting data of jobs created and failed in the last 24 hours
+<django.db.backends.postgresql.base.DatabaseWrapper object at 0x7efedba29860>
+2024-06-11 00:00:00
+2024-06-10 00:00:00
+---------------Server - default----------------
+Total Jobs Created : 3351
+Total Jobs Failed: 68
+Total Jobs Completed: 3025
+Total Jobs Pending: 258
+[✔] cc64baca-0f14-4c9e-94e9-f561be160c2b
